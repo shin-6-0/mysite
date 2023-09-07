@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.poscodx</groupId>
-		<artifactId>mysite</artifactId>
+		<artifactId>my_site</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>mysite02</artifactId>
