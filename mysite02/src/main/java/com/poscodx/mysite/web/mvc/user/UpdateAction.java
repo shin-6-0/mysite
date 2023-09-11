@@ -9,38 +9,33 @@ import javax.servlet.http.HttpSession;
 
 import com.poscodx.mysite.dao.UserDao;
 import com.poscodx.mysite.vo.UserVo;
-import com.poscodx.web.utils.WebUtil;
+import com.poscodx.web.mvc.Action;
 
-public class UpdateAction {
+public class UpdateAction implements Action {
+	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("UpdateAction 들어옴");
-
-		// 접근 제어 (인증이 필요한 접근에 대한 체크)
+		// Access Control(보안, 인증체크)
 		HttpSession session = request.getSession();
-		if (session == null) {
-			WebUtil.redirect(request.getContextPath(), request, response);
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null) {
-			WebUtil.redirect(request.getContextPath(), request, response);
-			return;
-		}
-
-		Long userNo = authUser.getNo();
-		String password = request.getParameter("password");
+		//////////////////////////////////////////////////////
+		
 		String name = request.getParameter("name");
+		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
+		
+		UserVo vo = new UserVo();
+		vo.setName(name);
+		vo.setPassword(password);
+		vo.setGender(gender);
+		vo.setNo(authUser.getNo());
 
-		new UserDao().updateUserNamePassword(name, password, gender, userNo);
-		if (session != null) {
-			session.removeAttribute("authUser");
-		}
-		authUser.setNo(userNo);
+		new UserDao().update(vo);
 		authUser.setName(name);
-		session.setAttribute("authUser", authUser);
-
-		WebUtil.forward("user/updatesuccess", request, response);
-
+		
+		response.sendRedirect(request.getContextPath() + "/user?a=updateform");
 	}
 }

@@ -15,25 +15,21 @@ import com.poscodx.web.utils.WebUtil;
 public class UpdateFormAction implements Action {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		// Access Control(접근제어)
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Access Control(보안, 인증체크)
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
-			System.out.println("User가 없습니다!");
-			response.sendRedirect(request.getContextPath()+"/user?a=loginform");
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		///////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////
 		
-		System.out.println("User가 확인되었습니다!");
-		Long memNo = authUser.getNo();
-		UserVo getMem = new UserDao().findByNo(memNo);
-		System.out.println(getMem.getEmail()+", "+getMem.getGender()+", "+getMem.getPassword());
-		request.setAttribute("getMem", getMem);
+		Long no = authUser.getNo();
+		UserVo userVo = new UserDao().findByNo(no);
 		
+		request.setAttribute("userVo", userVo);
 		WebUtil.forward("user/updateform", request, response);
-		
 	}
 
 }

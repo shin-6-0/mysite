@@ -2,7 +2,6 @@ package com.poscodx.mysite.controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,17 +12,16 @@ import com.poscodx.web.mvc.Action;
 
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	public void init() throws ServletException {
-		//web.xml에 설정한 config가 실행되는지 확인
-		String configPath = this.getServletConfig().getInitParameter("config");
+		String configPath = getServletConfig().getInitParameter("config");
 		System.out.println(configPath);
+		
 		super.init();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		String actionName = request.getParameter("a");
 		Action action = new MainActionFactory().getAction(actionName); 
 		action.execute(request, response);

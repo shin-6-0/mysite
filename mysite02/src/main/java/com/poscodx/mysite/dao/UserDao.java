@@ -62,6 +62,92 @@ public class UserDao {
 		return userVo;
 	}
 	
+	public UserVo findByNo(Long no) {
+		UserVo vo = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			conn = getConnection();
+			
+			String sql = "select no, name, email, gender from user where no=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new UserVo();
+				
+				vo.setNo(rs.getLong(1));
+				vo.setName(rs.getString(2));
+				vo.setEmail(rs.getString(3));
+				vo.setGender(rs.getString(4));
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+
+	public void update(UserVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			
+			if("".equals(vo.getPassword())) {
+				String sql = "update user set name=?, gender=? where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setLong(3, vo.getNo());
+			} else {
+				String sql = "update user set name=?, gender=?, password=password(?) where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setString(3, vo.getPassword());
+				pstmt.setLong(4, vo.getNo());
+			}
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
 	public Boolean insert(UserVo vo) {
 		boolean result = false;
 		
@@ -105,87 +191,6 @@ public class UserDao {
 		return result;
 	}
 	
-	public UserVo findByNo(Long userNo) {
-		UserVo result = null;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			String sql = "select name , email, password , gender  from user  where no= ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, userNo);
-
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				String name = rs.getString(1);
-				String email = rs.getString(2);
-				String password = rs.getString(3);
-				String gender = rs.getString(4);
-				result = new UserVo();
-				result.setEmail(email);
-				result.setPassword(password);
-				result.setName(name);
-				result.setGender(gender);
-			}
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-	
-	public void updateUserNamePassword(String name, String password, String gender, Long no) {
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		boolean result = false;
-
-		try {
-			conn = getConnection();
-			String sql = "update user set name = ? , password = password(?) ,  gender = ? where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, password);
-			pstmt.setString(3, gender);
-			pstmt.setLong(4, no);
-			int count = pstmt.executeUpdate();
-			result = count == 1;
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				// 자원정리(clean-up)
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -200,6 +205,4 @@ public class UserDao {
 		
 		return conn;
 	}
-
-
 }
