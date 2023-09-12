@@ -45,6 +45,19 @@
     <servlet-name>GuestbookController</servlet-name>
     <url-pattern>/guestbook</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>BoardController</display-name>
+    <servlet-name>BoardController</servlet-name>
+    <servlet-class>com.poscodx.mysite.controller.BoardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardController</servlet-name>
+    <url-pattern>/board</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <filter>
     <display-name>EncodingFilter</display-name>
     <filter-name>EncodingFilter</filter-name>

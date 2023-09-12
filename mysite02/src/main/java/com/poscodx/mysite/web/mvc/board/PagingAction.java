@@ -1,4 +1,4 @@
-package com.poscodx.mysite.web.mvc.main;
+package com.poscodx.mysite.web.mvc.board;
 
 import java.io.IOException;
 
@@ -9,9 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.poscodx.web.mvc.Action;
 import com.poscodx.web.utils.WebUtil;
 
-public class MainAction implements Action {
+public class PagingAction implements Action {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		WebUtil.forward("main/index", request, response);
+		System.out.println("PagingAction start");
+		int currentPage = Integer.parseInt(request.getParameter("page"));
+
+		System.out.println(currentPage);
+
+		WebUtil.redirect(request.getContextPath() + "/board?a=board", request, response);
 	}
+
 }

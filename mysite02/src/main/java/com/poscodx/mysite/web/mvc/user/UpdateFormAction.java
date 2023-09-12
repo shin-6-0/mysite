@@ -20,7 +20,7 @@ public class UpdateFormAction implements Action {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/user?a=loginform");
 			return;
 		}
 		//////////////////////////////////////////////////////

@@ -16,6 +16,7 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionName = request.getParameter("a");
 		Action action = new UserActionFactory().getAction(actionName); 
+		System.out.println("mysite02 유저 action = "+actionName);
 		action.execute(request, response);
 	}
 
