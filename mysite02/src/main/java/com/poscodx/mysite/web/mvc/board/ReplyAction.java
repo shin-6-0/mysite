@@ -21,25 +21,25 @@ public class ReplyAction implements Action {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
-		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		int gNo = Integer.parseInt(request.getParameter("gNo"));
+		int oNo = Integer.parseInt(request.getParameter("oNo"));
 		int depth = Integer.parseInt(request.getParameter("depth"));
 
 //		Long parentNo = Long.parseLong(request.getParameter("no"));
-		System.out.println("orderNo: " + orderNo);
-		// Boolean result= new BoardRepository().replyUpdate(groupNo, (orderNo+1));
+		System.out.println("orderNo: " + oNo);
+		// Boolean result= new BoardRepository().replyUpdate(gNo, (orderNo+1));
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("contents");
 
 		BoardVo vo = new BoardVo();
 
-		System.out.println("orderNo: " + orderNo);
+		System.out.println("orderNo: " + oNo);
 		vo.setTitle(title);
 		vo.setContents(content);
 		vo.setHit(0);
-		vo.setGNo(groupNo);
-		vo.setONo(orderNo + 1);
+		vo.setgNo(gNo);
+		vo.setgNo(oNo + 1);
 		vo.setDepth(depth + 1);
 		vo.setUserNo(authUser.getNo());
 

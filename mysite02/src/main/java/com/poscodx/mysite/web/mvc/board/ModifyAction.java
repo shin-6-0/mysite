@@ -25,11 +25,11 @@ public class ModifyAction implements Action {
 			return;
 		}
 		
-		Long no = 	Long.parseLong(request.getParameter("no"));
-		String title = 	request.getParameter("title");
-		String content = 	request.getParameter("content");
+		Long no = Long.parseLong(request.getParameter("no"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 		BoardVo boardvo = new BoardDao().updateView(no , title , content);
-		WebUtil.redirect(request.getContextPath() + "/board?a=board", request, response);
+		WebUtil.redirect(request.getContextPath() + "/board/modify", request, response);
 		
 	}
 

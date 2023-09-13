@@ -26,8 +26,8 @@ public class BoardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setInt(3, vo.getHit());
-			pstmt.setInt(4, vo.getGNo());
-			pstmt.setInt(5, vo.getONo());
+			pstmt.setInt(4, vo.getgNo());
+			pstmt.setInt(5, vo.getoNo());
 			pstmt.setInt(6, vo.getDepth());
 			pstmt.setLong(7, vo.getUserNo());
 			int count = pstmt.executeUpdate();
@@ -64,7 +64,10 @@ public class BoardDao {
 
 			System.out.println("findByNo start");
 
-			String sql = "SELECT a.no, a.title, a.contents, a.reg_date, a.hit, a.g_no, a.o_no, a.depth, b.no, b.name from board a, user b where a.user_no = b.no and a.no=?";
+			String sql = "SELECT a.no, a.title, a.contents, "
+					+ "a.reg_date, a.hit, a.g_no, a.o_no, "
+					+ "a.depth, b.no, b.name "
+					+ "from board a, user b where a.user_no = b.no and a.no=?";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, Boardno);
@@ -86,14 +89,15 @@ public class BoardDao {
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setContents(content);
-				vo.setRedDate(regDate);
+				vo.setRegDate(regDate);
 				vo.setHit(hit);
-				vo.setGNo(groupNo);
-				vo.setONo(orderNo);
+				vo.setgNo(groupNo);
+				vo.setoNo(orderNo);
 				vo.setDepth(depths);
 				vo.setUserNo(userNo);
 				vo.setUserName(userName);
 			}
+			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -111,7 +115,6 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-
 		return vo;
 	}
 
@@ -167,8 +170,8 @@ public class BoardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setInt(3, vo.getHit());
-			pstmt.setInt(4, vo.getGNo());
-			pstmt.setInt(5, vo.getONo());
+			pstmt.setInt(4, vo.getgNo());
+			pstmt.setInt(5, vo.getoNo());
 			pstmt.setInt(6, vo.getDepth());
 			pstmt.setLong(7, vo.getUserNo());
 			int count = pstmt.executeUpdate();
@@ -296,7 +299,7 @@ public class BoardDao {
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setContents(contents);
-				vo.setRedDate(regDate);
+				vo.setRegDate(regDate);
 				vo.setDepth(depth);
 				vo.setHit(hit);
 				vo.setUserNo(userNo);
@@ -335,7 +338,12 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			System.out.println("findAllSearch start");
-			String sql = " select a.no ,  a.title  , a.contents , a.reg_date, a.depth , a.hit , b.no as user_no , b.name from board a ,user b where a.user_no = b.no and a.title like '%" + searchValue + "%' order by  a.g_no  desc, a.o_no asc limit ? , ?";
+			String sql = " select a.no ,  a.title  , "
+					+ "a.contents , a.reg_date, a.depth , a.hit , "
+					+ "b.no as user_no , b.name "
+					+ "from board a ,user b "
+					+ "where a.user_no = b.no and a.title like '%" + searchValue + "%' "
+							+ "order by  a.g_no  desc, a.o_no asc limit ? , ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, first);
 			pstmt.setInt(2, second);
@@ -356,7 +364,7 @@ public class BoardDao {
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setContents(contents);
-				vo.setRedDate(regDate);
+				vo.setRegDate(regDate);
 				vo.setDepth(depth);
 				vo.setHit(hit);
 				vo.setUserNo(userNo);

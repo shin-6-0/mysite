@@ -17,7 +17,7 @@ public class BoardController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String actionName = request.getParameter("a");
-		System.out.println("mysite02 게시판 action = "+actionName);
+		System.out.println("🌿🌿🌿 게시판 action = "+actionName);
 
 		ActionFactory af = new BoardActionFactory(); 
 		Action action = af.getAction(actionName);

@@ -32,15 +32,15 @@
 						<tr>
 							<c:choose>
 								<c:when test="${curPageNum eq 0 }">
-									<td>${status.index }</td>
+									<td>${status.index + 1 }</td>
 								</c:when>
 								<c:otherwise>
-									<td>${ status.index + (curPageNum * 5)  - 5 }</td>
+									<td>${ status.index + (curPageNum * 5)  - 4 }</td>
 								</c:otherwise>
 							</c:choose>
 
 							<c:choose>
-								<c:when test="${vo.depth eq 0 }">
+								<c:when test="${vo.depth eq 1 }">
 									<td style="text-align:left; padding-left:${vo.depth * 20}px ">
 										<a href="${pageContext.request.contextPath}/board?a=view&no=${vo.no}">${vo.title}</a>
 									</td>
@@ -55,7 +55,7 @@
 
 							<td>${vo.userName}</td>
 							<td>${vo.hit}</td>
-							<td>${vo.redDate}</td>
+							<td>${vo.regDate}</td>
 
 							<c:choose>
 								<c:when test="${authUser.no eq vo.userNo}">

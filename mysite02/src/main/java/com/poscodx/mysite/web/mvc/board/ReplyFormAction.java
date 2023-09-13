@@ -19,11 +19,11 @@ public class ReplyFormAction implements Action {
 		Long no = Long.valueOf(request.getParameter("no"));
 
 		BoardVo vo = new BoardDao().findByNo(no);
-
-		System.out.println("vo값 출력 : " + vo);
-
+		
 		request.setAttribute("vo", vo);
+		System.out.println("return 전 vo = "+vo);
 
+		
 		WebUtil.forward("board/reply", request, response);
 	}
 

@@ -11,7 +11,6 @@ public class BoardActionFactory implements ActionFactory {
 	public Action getAction(String actionName) {
 		Action action = null;
 
-		/* 하나하나씩 */
 		if ("view".equals(actionName)) { //글 내용 보기
 			action = new ViewAction();
 		} else if ("writeform".equals(actionName)) { //글쓰기 누르면 write로 보내준다.
@@ -32,8 +31,6 @@ public class BoardActionFactory implements ActionFactory {
 			action = new ModifyAction();
 		} 
 		else {
-
-			/* 게시판 리스트 메인화면 */
 			action = new ListAction();
 		}
 		return action;

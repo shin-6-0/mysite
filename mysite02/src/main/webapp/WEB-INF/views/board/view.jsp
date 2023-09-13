@@ -45,8 +45,10 @@
 						<c:when test="${not empty authUser}">
 
 							<a href="${pageContext.request.contextPath}/board?a=replyform&no=${no}">답글 달기</a>
+							<br><br>
 						</c:when>
 					</c:choose>
+
 				</div>
 			</div>
 		</div>

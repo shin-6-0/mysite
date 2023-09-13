@@ -30,8 +30,8 @@ public class WriteAction implements Action {
 			boardVo.setContents(request.getParameter("contents"));
 			boardVo.setHit(0);
 			boardVo.setDepth(1); // 간격
-			boardVo.setGNo(maxGroupNo + 1); // 그룹넘버에 1플러스 해서 새로운 그룹 만들기
-			boardVo.setONo(1); // 그룹내 글 순서
+			boardVo.setgNo(maxGroupNo + 1); // 그룹넘버에 1플러스 해서 새로운 그룹 만들기
+			boardVo.setoNo(1); // 그룹내 글 순서
 			boardVo.setUserNo(authUser.getNo()); // session에 있는 authUser를 가져와서쓰자.
 
 			new BoardDao().insert(boardVo); // 게시글 등록
