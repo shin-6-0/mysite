@@ -16,7 +16,7 @@
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board">
 					<input type="hidden" name="a" value="modify">
-					<input type="hidden" name="no" value="${no}">
+					<input type="hidden" name="no" value="${vo.no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -24,22 +24,22 @@
 						<tr>
 							<td class="label">제목</td>
 							<td>
-								<input type="text" name="title" >
+								<input type="text" name="title" value="${vo.title}">
 							</td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content">
-								${content }
+								<textarea id="content" name="contents">
+								${vo.contents}
 								</textarea>
 							</td>
-						</tr>
+						</tr>						
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath}/board?a=board">취소</a>
 						<input type="submit" value="수정">
-					</div>
+					</div>					
 				</form>
 			</div>
 		</div>

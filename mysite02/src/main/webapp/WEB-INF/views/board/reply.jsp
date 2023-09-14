@@ -40,7 +40,6 @@
 							</td>
 						</tr>
 					</table>
-					<p>${vo }</p>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath}/board?a=board">취소</a>
 						<input type="submit" value="등록">

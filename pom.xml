@@ -6,8 +6,12 @@
 	<artifactId>my_site</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
+	
+	
 	<modules>
 		<module>mysite02</module>
 	</modules>
+	
 	<build><finalName>my_site</finalName></build>
 </project>

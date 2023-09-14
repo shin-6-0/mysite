@@ -30,7 +30,6 @@
 		  </dependency>		
 	</dependencies>
 	
-	<build>
-		<finalName>mysite02</finalName>
+	<build><finalName>mysite02</finalName>
 	</build>	
 </project>

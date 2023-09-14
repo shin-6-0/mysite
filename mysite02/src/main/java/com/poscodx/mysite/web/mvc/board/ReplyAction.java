@@ -17,7 +17,7 @@ public class ReplyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		System.out.println("ReplyAction start");
+		System.out.println(">>>>>>>>>>>>>>ReplyAction 시작");
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
@@ -26,20 +26,27 @@ public class ReplyAction implements Action {
 		int depth = Integer.parseInt(request.getParameter("depth"));
 
 //		Long parentNo = Long.parseLong(request.getParameter("no"));
-		System.out.println("orderNo: " + oNo);
+		System.out.println("orderNo: " + oNo+", gNo: "+gNo+", dept: "+depth);
 		// Boolean result= new BoardRepository().replyUpdate(gNo, (orderNo+1));
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("contents");
 
 		BoardVo vo = new BoardVo();
-
+		int countSameDepth=BoardDao.findHasSameDepth(gNo,depth);
+		int countPlus1Depth=BoardDao.findHasPlus1Depth(gNo,depth);
+		System.out.println("같은 깊이의 depth의 갯수 : "+countSameDepth);
+		if(countSameDepth!=0||(countPlus1Depth!=0&&countSameDepth==0)) {
+			new BoardDao().setOrder(gNo,oNo,depth);
+			vo.setoNo(oNo+1);
+		}else {
+			vo.setoNo(oNo + 1);
+		}
 		System.out.println("orderNo: " + oNo);
 		vo.setTitle(title);
 		vo.setContents(content);
 		vo.setHit(0);
 		vo.setgNo(gNo);
-		vo.setgNo(oNo + 1);
 		vo.setDepth(depth + 1);
 		vo.setUserNo(authUser.getNo());
 

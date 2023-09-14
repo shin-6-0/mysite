@@ -21,8 +21,6 @@ public class ReplyFormAction implements Action {
 		BoardVo vo = new BoardDao().findByNo(no);
 		
 		request.setAttribute("vo", vo);
-		System.out.println("return 전 vo = "+vo);
-
 		
 		WebUtil.forward("board/reply", request, response);
 	}

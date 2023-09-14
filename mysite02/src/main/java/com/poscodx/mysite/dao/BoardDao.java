@@ -19,7 +19,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("insertReply start");
 			String sql = " INSERT INTO board(no, title, contents, reg_date, hit, g_no, o_no, depth, user_no)"
 					   + " VALUES (null, ?, ?, sysdate(), ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -52,7 +51,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public BoardVo findByNo(Long Boardno) {
+	public BoardVo findByNo(Long no2) {
 		BoardVo vo = null;
 
 		Connection conn = null;
@@ -62,15 +61,13 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			System.out.println("findByNo start");
-
 			String sql = "SELECT a.no, a.title, a.contents, "
 					+ "a.reg_date, a.hit, a.g_no, a.o_no, "
 					+ "a.depth, b.no, b.name "
 					+ "from board a, user b where a.user_no = b.no and a.no=?";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, Boardno);
+			pstmt.setLong(1, no2);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -125,7 +122,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("replyUpdate start");
 			String sql = "update board " + "set o_no=?+1 " + "where g_no=? and o_no>=? ";
 			pstmt = conn.prepareStatement(sql);
 
@@ -163,7 +159,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("Boardinsert start");
 			String sql = " insert into board(no, title, contents, reg_date, hit, g_no, o_no, depth, user_no) "
 					+ "values(null, ?, ?, sysdate(), ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -202,7 +197,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("BoardDelete start");
 			String sql = "delete from board where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
@@ -239,7 +233,6 @@ public class BoardDao {
 			conn = getConnection();
 
 			String sql = " select count(*) from board";
-			System.out.println("findAllCount start");
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -277,7 +270,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("findAll start");
 			String sql = " select a.no ,  a.title  , a.contents , a.reg_date, a.depth , a.hit , b.no as user_no , b.name from board a ,user b where a.user_no = b.no order by a.g_no  desc  , a.o_no asc limit ? , ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, first);
@@ -337,7 +329,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("findAllSearch start");
 			String sql = " select a.no ,  a.title  , "
 					+ "a.contents , a.reg_date, a.depth , a.hit , "
 					+ "b.no as user_no , b.name "
@@ -401,7 +392,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("updateView start");
 			String sql = "update board set title = ? , contents = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, title);
@@ -438,7 +428,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("findMaxGroupNo start");
 			String sql = "select ifnull(max(g_no),1) from board";
 			pstmt = conn.prepareStatement(sql);
 
@@ -476,7 +465,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("findMaxOrderNo start");
 			String sql = "select max(o_no) " + "from board";
 			pstmt = conn.prepareStatement(sql);
 
@@ -513,7 +501,6 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-			System.out.println("updateHit start");
 			String sql = "update board set hit = hit + 1 where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, no);
@@ -544,7 +531,152 @@ public class BoardDao {
 		return null;
 	}
 	
-	private Connection getConnection() throws SQLException {
+	public boolean checkUserSame(Long userNo, String no) {
+		boolean same=false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			String sql = "select u.no from board b"
+					+ " inner join user u on b.user_no=u.no "
+					+ " where b.no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, userNo);
+			rs = pstmt.executeQuery();
+			int boardNo=0;
+			if (rs.next()) {
+				boardNo = rs.getInt(1);
+			}
+			if(boardNo==userNo) {
+				same=true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error " + e);
+		} finally {
+			try {
+
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error " + e);
+			}
+		}
+		
+		return same;
+	}
+	
+	public static int findHasSameDepth(int gNo, int depth) {
+		int countSameDepth=0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from board where g_no=? and depth=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, gNo);
+			pstmt.setLong(2, depth);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				countSameDepth = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error " + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error " + e);
+			}
+		}
+		return countSameDepth;
+	}
+	
+	public static int findHasPlus1Depth(int gNo, int depth) {
+		int countPlus1Depth=0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from board where g_no=? and depth=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, gNo);
+			pstmt.setLong(2, (depth+1));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				countPlus1Depth = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error " + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("error " + e);
+			}
+		}
+		return countPlus1Depth;
+	}
+	
+	public boolean setOrder(int gNo, int oNo, int depth) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result=false;
+		try {
+			conn = getConnection();
+			String sql = "update board "
+					+ "set o_no=o_no+1 "
+					+ "where g_no=? and o_no>?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, gNo);
+			pstmt.setLong(2, oNo);
+
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				// 자원정리(clean-up)
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	private static Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -557,5 +689,13 @@ public class BoardDao {
 		
 		return conn;
 	}
+
+
+
+
+
+
+
+
 
 }

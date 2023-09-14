@@ -17,20 +17,23 @@ public class ModifyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("글 수정 시작");
-		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 아이디 정보 가져오기
-		if(authUser == null) {
-			response.sendRedirect(request.getContextPath()+"/board");
-			return;
-		}
-		
-		Long no = Long.parseLong(request.getParameter("no"));
+		System.out.println(">>>>>>>>>>>>>>Modify시작");
+		String no = request.getParameter("no");
+
+		String boardNo = request.getParameter("no");
 		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		BoardVo boardvo = new BoardDao().updateView(no , title , content);
-		WebUtil.redirect(request.getContextPath() + "/board/modify", request, response);
+		String contents = request.getParameter("contents");
+		System.out.println(boardNo+":"+title+":"+contents);
 		
+		BoardVo vo = new BoardVo();
+		vo.setNo(Long.parseLong(boardNo));
+		vo.setTitle(title);
+		vo.setContents(contents);
+		System.out.println("vo값 // 이후 값 출력 : " + vo);
+
+		new BoardDao().updateView(Long.parseLong(no) , title , contents);
+		request.setAttribute("BoardVo", vo);
+		WebUtil.redirect(request.getContextPath() + "/board?a=board", request, response);
 	}
 
 }

@@ -26,7 +26,7 @@ public class ViewAction implements Action {
 		request.setAttribute("contents", boardvo.getContents());
 		request.setAttribute("no", no);
 		request.setAttribute("userNo", boardvo.getUserNo());
-
+		//System.out.println("boardVo = "+boardvo);
 		WebUtil.forward("board/view", request, response);
 	}
 

@@ -24,7 +24,7 @@ public class WriteAction implements Action {
 				response.sendRedirect(request.getContextPath()+"/board");
 				return;
 			}
-			Integer maxGroupNo = new BoardDao().findMaxGroupNo(); // 그룹넘버 가져와야함
+			Integer maxGroupNo = new BoardDao().findMaxGroupNo(); // 그룹넘버가져오기
 			BoardVo boardVo = new BoardVo();
 			boardVo.setTitle(request.getParameter("title"));
 			boardVo.setContents(request.getParameter("contents"));
@@ -38,7 +38,7 @@ public class WriteAction implements Action {
 
 			System.out.println(authUser.getName());
 			System.out.println(authUser.getNo());
-		WebUtil.redirect(request.getContextPath() + "/board?a=board", request, response); // board ㄱㄱ
+		WebUtil.redirect(request.getContextPath() + "/board?a=board", request, response); //작성된 글로 이동
 	}
 }
 
