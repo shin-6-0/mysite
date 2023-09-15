@@ -55,7 +55,6 @@ public class Paging {
 		}
 	}
 
-	// 검색을 했을 때 총 페이지의 마지막 번호
 	public void setLastPageNum(String kwd) {
 
 		int total = new BoardDao().findAllCount();
