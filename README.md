@@ -3,6 +3,7 @@
 
 ## mysite02
 - 게시판(board)
+  - 글 작성, 본인 글 수정, 답글달기, 목록에서 삭제
 - 방명록(guestbook)
 - 회원가입, 정보수정 가능
 ![image](https://github.com/shin-6-0/mysite/assets/96154444/f52632fd-717a-4d71-83d2-6b58b1df1fef)
