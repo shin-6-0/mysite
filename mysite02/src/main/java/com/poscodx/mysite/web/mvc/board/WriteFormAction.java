@@ -16,7 +16,7 @@ public class WriteFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 로그인자 정보 가져오기
+		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 아이디 정보 가져오기
 		
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath()+"/board");

@@ -20,7 +20,7 @@ public class ModifyFormAction implements Action {
 		System.out.println(">>>>>>>>>>>>>>ModifyForm시작");
 		String no = request.getParameter("no");
 		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 로그인자 정보 가져오기
+		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 아이디 정보 가져오기
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath()+"/board");
 			return;
