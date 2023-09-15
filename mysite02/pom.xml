@@ -18,6 +18,13 @@
 	</properties>
 
 	<dependencies>
+		<!-- servlet -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
@@ -30,6 +37,5 @@
 		  </dependency>		
 	</dependencies>
 	
-	<build><finalName>mysite02</finalName>
-	</build>	
+	<build><finalName>mysite02</finalName></build>	
 </project>
