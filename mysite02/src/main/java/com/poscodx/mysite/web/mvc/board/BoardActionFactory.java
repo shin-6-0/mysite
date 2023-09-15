@@ -11,11 +11,11 @@ public class BoardActionFactory implements ActionFactory {
 	public Action getAction(String actionName) {
 		Action action = null;
 
-		if ("view".equals(actionName)) { //글 내용 보기
+		if ("view".equals(actionName)) {
 			action = new ViewAction();
-		} else if ("writeform".equals(actionName)) { //글쓰기 누르면 write로 보내준다.
+		} else if ("writeform".equals(actionName)) { 
 			action = new WriteFormAction();
-		} else if ("write".equals(actionName)) { //Data들 모두 넣고 입력하면 DB에 입력하는 Action으로 간다.
+		} else if ("write".equals(actionName)) { 
 			action = new WriteAction();
 		} else if ("delete".equals(actionName)) {
 			action = new DeleteAction();

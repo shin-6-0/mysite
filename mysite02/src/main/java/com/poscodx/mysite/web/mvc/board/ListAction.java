@@ -64,7 +64,7 @@ public class ListAction implements Action {
 		request.setAttribute("groupLastNum", groupLastNum);
 		request.setAttribute("lastPageNum", lastPageNum); // lastPageNum = 6일 때, 7, 8, 9, 10는 링크를 활성화 하지 못함
 		request.setAttribute("list", list);
-
+		request.setAttribute("kwd", keyword);
 		WebUtil.forward("board/list", request, response);
 
 	}
