@@ -530,49 +530,7 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public boolean checkUserSame(Long userNo, String no) {
-		boolean same=false;
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-			String sql = "select u.no from board b"
-					+ " inner join user u on b.user_no=u.no "
-					+ " where b.no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, userNo);
-			rs = pstmt.executeQuery();
-			int boardNo=0;
-			if (rs.next()) {
-				boardNo = rs.getInt(1);
-			}
-			if(boardNo==userNo) {
-				same=true;
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error " + e);
-		} finally {
-			try {
-
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				System.out.println("error " + e);
-			}
-		}
-		
-		return same;
-	}
 	
 	public static int findHasSameDepth(int gNo, int depth) {
 		int countSameDepth=0;

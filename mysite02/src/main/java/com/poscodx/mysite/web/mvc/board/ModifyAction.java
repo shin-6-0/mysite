@@ -23,13 +23,12 @@ public class ModifyAction implements Action {
 		String boardNo = request.getParameter("no");
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
-		System.out.println(boardNo+":"+title+":"+contents);
+		System.out.println("contents : '"+contents+"'");
 		
 		BoardVo vo = new BoardVo();
 		vo.setNo(Long.parseLong(boardNo));
 		vo.setTitle(title);
 		vo.setContents(contents);
-		System.out.println("vo값 // 이후 값 출력 : " + vo);
 
 		new BoardDao().updateView(Long.parseLong(no) , title , contents);
 		request.setAttribute("BoardVo", vo);

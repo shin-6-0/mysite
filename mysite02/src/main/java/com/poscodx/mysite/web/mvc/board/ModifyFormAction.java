@@ -19,21 +19,22 @@ public class ModifyFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(">>>>>>>>>>>>>>ModifyForm시작");
 		String no = request.getParameter("no");
+		BoardVo vo = new BoardDao().findByNo(Long.parseLong(no));		
+
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser"); //session에서 로그인자 정보 가져오기
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath()+"/board");
 			return;
 		}
-		String writerName = authUser.getName();
 		Long userNo = authUser.getNo();
-		boolean chkSame = new BoardDao().checkUserSame(userNo,no); // 세션의 로그인자와 글쓴이 같은지 확인
+		Long boardWriter=vo.getUserNo();
+		System.out.println("userNo : "+userNo+", boardWriter : "+boardWriter);
 
-		if(!chkSame) {
+		if(userNo!=boardWriter) {
 			response.sendRedirect(request.getContextPath()+"/board");
 			return;
 		}
-		BoardVo vo = new BoardDao().findByNo(Long.parseLong(no));		
 		request.setAttribute("vo", vo);
 		
 		WebUtil.forward("board/modify", request, response);
