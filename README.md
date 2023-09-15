@@ -6,6 +6,8 @@
   - 글 작성, 본인 글 수정, 답글달기, 목록에서 삭제
 - 방명록(guestbook)
 - 회원가입, 정보수정 가능
+
+
 ![image](https://github.com/shin-6-0/mysite/assets/96154444/f52632fd-717a-4d71-83d2-6b58b1df1fef)
 ![image](https://github.com/shin-6-0/mysite/assets/96154444/8982a338-a400-4e6a-844e-6771441ae021)
 ![image](https://github.com/shin-6-0/mysite/assets/96154444/09da5497-6b03-4ca7-a8f6-b34ca7954289)
