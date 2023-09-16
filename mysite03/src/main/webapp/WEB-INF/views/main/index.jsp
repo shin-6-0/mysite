@@ -16,7 +16,7 @@
 			<div id="content">
 				<div id="site-introduction">
 					<img id="profile" src="${pageContext.request.contextPath}/assets/images/goodchun.png" style="width: 120px">
-					<h2>Yukyung의 MySite</h2>
+					<h2>Yukyung의 MySite03</h2>
 					<p>
 						▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀<br>
 						<br><b>신유경</b><br>
