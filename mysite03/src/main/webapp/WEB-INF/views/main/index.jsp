@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Yukyung's Mysite02</title>
+<title>Yukyung's Mysite03</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="<%=request.getContextPath() %>/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>

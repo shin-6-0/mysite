@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Yukyung's Mysite02 - User</title>
+<title>Yukyung's Mysite03 - User</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css"
 	rel="stylesheet" type="text/css">
