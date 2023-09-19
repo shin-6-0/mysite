@@ -26,6 +26,13 @@
 			<version>${org-springframework-version}</version>
 		</dependency>
 
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org-springframework-version}</version>
+		</dependency>
+		
 		<!-- spring jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -35,10 +42,10 @@
 
 		<!-- jstl -->
 		<dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
-		</dependency>
+			<groupId>jstl</groupId>
+		   	<artifactId>jstl</artifactId>
+		   	<version>1.2</version>
+		</dependency>	
 		
 		<!-- MyBatis -->
 		<dependency>

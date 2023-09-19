@@ -23,24 +23,22 @@ public class GuestbookController {
 	public String main(Model model) {
 		List<GuestbookVo> list = guestbookService.getContentsList();
 		model.addAttribute("list", list);
-		return "guestbook/index";
+		return "guestbook/main";
 	}
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no, Model model) {
-		System.out.println("GET방식 DELETE 진입 >> "+model+", "+no);
 		model.addAttribute("no", no);
-		return "guestbook/deleteform";
+		return "guestbook/delete";
 	}
 
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
 	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
-		System.out.println("POST방식 DELETE 진입 >> "+password+", "+no);
 		guestbookService.deleteContents(no, password);
 		return "redirect:/guestbook";
 	}
 
-	@RequestMapping("/add")
+	@RequestMapping("add")
 	public String add(GuestbookVo vo) {
 		guestbookService.addContents(vo);
 		return "redirect:/guestbook";

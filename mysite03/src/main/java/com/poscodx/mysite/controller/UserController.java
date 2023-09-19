@@ -95,5 +95,9 @@ public class UserController {
 		authUser.setName(userVo.getName());
 		return "redirect:/user/update";
 	}
-	
+
+//	@ExceptionHandler(Exception.class)
+//	public String handlerException() {
+//		return "error/exception";
+//	}
 }
