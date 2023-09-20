@@ -15,20 +15,12 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="${pageContext.request.contextPath}/assets/images/goodchun.png" style="width: 120px">
-					<h2>Yukyung의 MySite03</h2>
+					<img id="profile" src="${pageContext.request.contextPath }${site.profile }">
+					<h2>${site.welcome }</h2>
 					<p>
-						▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀<br>
-						<br><b>신유경</b><br>
-						1996.03.13 / ENTP<br>
-						숭의여자고등학교 졸업 (2012.03 - 2015.02)<br>
-						경희대학교 전자공학과 졸업 (2016.03 - 2021.02)<br>
-						Favorite : <b>춘식이, 아샷추</b><br>
-						<br>
-						Servlet, JSP, JAVA를 이용해서 만든 사이트 입니다 :)<br><br>
-						▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀
+						${site.description }
 						<br><br>
-						<b><font size=""><a href="<%=request.getContextPath() %>/guestbook">💛방명록💛</a></font>에 글 남기기</b><br>
+						<a href="${pageContext.request.contextPath }/guestbook">💛방명록💛</a>에 글 남기기<br>
 					</p>
 				</div>
 			</div>

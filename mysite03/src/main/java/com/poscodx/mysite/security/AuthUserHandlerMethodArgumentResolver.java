@@ -26,6 +26,7 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 		
 		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
 		HttpSession session = request.getSession();
+		if(session==null)return null;
 		return session.getAttribute("authUser");
 	}
 
@@ -33,12 +34,12 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 	public boolean supportsParameter(MethodParameter parameter) {
 		AuthUser authUser = parameter.getParameterAnnotation(AuthUser.class);
 		
-		// @AuthUser가 안 붙어 있으면,
+		// @AuthUser없을 경우
 		if(authUser == null) {
 			return false;
 		}
 		
-		// Parameter Type이 UserVo가 아니면,
+		// Parameter Type이 UserVo가 아닐 경우
 		if(!parameter.getParameterType().equals(UserVo.class)) {
 			return false;
 		}
