@@ -29,6 +29,7 @@ public class AdminController {
 
 	@RequestMapping("/main/update")
 	public String update(SiteVo vo) {
+		System.out.println(">> SITE VO "+vo);
 		siteService.updateSite(vo);
 		return "redirect:/admin";
 	}
