@@ -1,6 +1,5 @@
 package com.poscodx.mysite.service;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +10,16 @@ import com.poscodx.mysite.vo.SiteVo;
 public class SiteService {
 	
 	@Autowired
-	private SiteRepository siteRepository;
+	private SiteRepository repository;
+	
+	@Autowired
+	private SiteRepository sietRepository;
 
-	public SiteVo find() {
-		return siteRepository.find();
+	public SiteVo getSite() {
+		return sietRepository.find();
 	}
 	
-	public boolean UpdateSite(SiteVo vo) {
-		return siteRepository.update(vo);
+	public void updateSite(SiteVo vo) {
+		sietRepository.update(vo);
 	}
-
-} 
+}

@@ -5,20 +5,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poscodx.mysite.security.Auth;
+import com.poscodx.mysite.service.FileUploadService;
 import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.vo.SiteVo;
 
+@Auth(Role="ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired
 	private SiteService siteService;
-	
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
 	@RequestMapping("")
 	public String main(Model model) {
-		SiteVo site = siteService.find();
-		model.addAttribute("site",site);
+		SiteVo vo = siteService.getSite();
+		model.addAttribute("siteVo", vo);
 		return "admin/main";
+	}
+
+	@RequestMapping("/main/update")
+	public String update(SiteVo vo) {
+		siteService.updateSite(vo);
+		return "redirect:/admin";
 	}
 	
 	@RequestMapping("/guestbook")
@@ -34,6 +46,5 @@ public class AdminController {
 	@RequestMapping("/user")
 	public String user() {
 		return "admin/user";
-	}
-	
+	}	
 }

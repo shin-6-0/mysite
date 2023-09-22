@@ -9,12 +9,7 @@ public class UserVo {
 	private String gender;
 	private String joinDate;
 	private String role;
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
 	public Long getNo() {
 		return no;
 	}
@@ -50,12 +45,16 @@ public class UserVo {
 	}
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
+	}	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
 				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
 	}
-
-	
 }
