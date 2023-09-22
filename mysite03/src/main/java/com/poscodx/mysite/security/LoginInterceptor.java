@@ -7,13 +7,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.poscodx.mysite.service.SiteService;
 import com.poscodx.mysite.service.UserService;
+import com.poscodx.mysite.vo.SiteVo;
 import com.poscodx.mysite.vo.UserVo;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private SiteService siteService;	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -34,6 +37,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		System.out.println("auth success: " + authUser);
 		
 		HttpSession session = request.getSession(true);
+		/*
+		 * SiteVo vo = siteService.getSite(); session.setAttribute("siteVo", vo);
+		 */
 		session.setAttribute("authUser", authUser);
 		response.sendRedirect(request.getContextPath());
 		
