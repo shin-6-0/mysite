@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.poscodx.mysite.service.SiteService;
+import com.poscodx.mysite.vo.SiteVo;
 
 public class SiteInterceptor implements HandlerInterceptor {
 	@Autowired
@@ -15,7 +16,12 @@ public class SiteInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("사이트 인터셉터 call !!");
+		SiteVo siteVo = (SiteVo) request.getServletContext().getAttribute("siteVo");
+		if(siteVo==null) {
+			siteVo =  siteService.getSite();
+			request.getServletContext().setAttribute("siteVo", siteVo);
+		}
+		System.out.println("Site Interceptor >> site Title : "+siteVo.getTitle());
 		return true;
 	}
 	
