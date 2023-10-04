@@ -21,7 +21,7 @@ public class ApplicationContextEventListener {
 		System.out.println("--- Context Refreshed Event Received ---");
 		SiteService siteService = applicationContext.getBean(SiteService.class);
 		SiteVo site = siteService.getSite();
-		
+		System.out.println(">> ApplicationContextEventListener 실행");
 		MutablePropertyValues propertyValues = new MutablePropertyValues();
 		propertyValues.add("title", site.getTitle());
 		propertyValues.add("profile", site.getProfile());

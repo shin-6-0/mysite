@@ -42,6 +42,7 @@ public class AdminController {
 	@RequestMapping("/main/update")
 	public String update(SiteVo vo, MultipartFile file) {
 		String profile = fileuploadService.restore(file);
+		System.out.println("MYSITE03 : file >> "+file);
 		if(profile != null) {
 			vo.setProfile(profile);
 		}
