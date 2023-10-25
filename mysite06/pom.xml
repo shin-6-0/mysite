@@ -94,7 +94,7 @@
 	
 	<build>
 		<finalName>mysite06</finalName>
-		<plugins>
+		<!--<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -120,6 +120,6 @@
 					<server>poscodx-tomcat</server>
 				</configuration>
 			</plugin>						
-		</plugins>		
+		</plugins>	-->	
 	</build>	
 </project>
